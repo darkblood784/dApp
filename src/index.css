@@ -2,21 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add this at the end of your global CSS file */
-@media (max-width: 768px) {
-    /* Adjust whale tail, body, and head for smaller screens */
-    .whale-tail {
-        left: -60px; /* Adjust tail position */
-        width: 40px;  /* Adjust tail size */
-    }
-    
-    .whale-body {
-        height: 24px; /* Adjust body height */
-        left: -20px;  /* Adjust body position to align with tail */
-    }
-
-    .whale-head {
-        left: calc(${sliderValue}% - 25px); /* Adjust head movement */
-        width: 60px;  /* Adjust head size */
-    }
-}
