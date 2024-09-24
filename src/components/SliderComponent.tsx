@@ -53,14 +53,14 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
         <div className="flex flex-col items-center justify-center w-full">
             <div ref={sliderContainerRef} className="slider-container relative w-full h-[80px] mb-5">
                 {/* Whale Tail: Move the tail further back */}
-                <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-[-80px] bottom-0 w-[45px] h-[54.5px]" />
+                <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-[-80px] bottom-0 w-[50px] h-[54.5px]" />
                 
                 {/* Whale Body: Stretches based on sliderValue */}
                 <div 
                     className="absolute bottom-[0.5px] h-[33px]" 
                     style={{
                         left: '-35px',  // Start the body after tail (adjust this to fine-tune alignment)
-                        width: `calc(${sliderValue}% - 15px)`,  // Stretch with slider
+                        width: `calc(${sliderValue}% - 0px)`,  // Stretch with slider
                         backgroundImage: 'url(./whale/body.png)',  // Whale body image
                         backgroundRepeat: 'repeat-x',  // Repeat body horizontally
                         backgroundSize: 'contain'
