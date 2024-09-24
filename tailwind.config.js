@@ -26,3 +26,30 @@ export default {
   },
   plugins: [],
 }
+
+<div className="w-full md:w-[45px] lg:w-[50px]">
+    {/* Tail */}
+    <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-[-80px] md:left-[-60px] w-[50px] md:w-[40px]" />
+
+    {/* Body */}
+    <div 
+        className="absolute bottom-0 h-[34px] md:h-[24px]"
+        style={{
+            left: '-35px',  // Adjust this based on screen size with Tailwind breakpoints if needed
+            width: `calc(${sliderValue}% - 0px)`,
+            backgroundImage: 'url(./whale/body.png)',
+            backgroundRepeat: 'repeat-x',
+            backgroundSize: 'contain'
+        }}
+    ></div>
+
+    {/* Head */}
+    <img 
+        src={getWhaleHeadSrc()}
+        alt="Whale Head"
+        className="absolute cursor-pointer bottom-0 top-[43px] w-[80px] md:w-[60px]"
+        style={{
+            left: `calc(${sliderValue}% - 35px)`  // Adjust head position using media queries
+        }}
+    />
+</div>
