@@ -59,7 +59,7 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
                 <div 
                     className="absolute bottom-[0.5px] h-[33px]" 
                     style={{
-                        left: '-36px',  // Start the body after tail (adjust this to fine-tune alignment)
+                        left: '-30px',  // Start the body after tail (adjust this to fine-tune alignment)
                         width: `calc(${sliderValue}% - 15px)`,  // Stretch with slider
                         backgroundImage: 'url(./whale/body.png)',  // Whale body image
                         backgroundRepeat: 'repeat-x',  // Repeat body horizontally
@@ -74,7 +74,7 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
                     alt="Whale Head" 
                     className="absolute cursor-pointer bottom-0 top-[43px] w-[60px] h-[44px]"
                     style={{
-                        left: `calc(${sliderValue}% - 35px)`  // Position the head with the slider
+                        left: `calc(${sliderValue}% - 30px)`  // Position the head with the slider
                     }} 
                     onMouseDown={handleMouseDown} 
                 />
