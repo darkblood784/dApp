@@ -52,17 +52,17 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
     return (
         <div className="flex flex-col items-center justify-center w-full">
             <div ref={sliderContainerRef} className="slider-container relative w-full h-[80px] mb-5">
-                <img src="./whale/tail.png" alt="Whale Tail" className="absolute left--10 bottom-0 w-[45px] h-[54.5px]" />
+                {/* Move the tail back to align with 0% */}
+                <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-[-45px] bottom-0 w-[45px] h-[54.5px]" />
                 
                 {/* Whale Body follows the head */}
                 <img 
                 src="./whale/body.png" 
                 alt="Whale Body" 
-                className="absolute left-[45px] bottom-[1.5px] h-[31px]" 
+                className="absolute bottom-[1.5px] h-[31px]" 
                 style={{
-                    width: `calc(${sliderValue}% - 45px)`,  // Make the body proportional to the slider
-                    maxWidth: `calc(100% - 90px)`, 
-                    border: '2px solid black'
+                    left: `calc(${sliderValue}% - 90px)`,  // Start from the adjusted tail position
+                    width: `calc(${sliderValue}% + 45px)`  // Adjust width so that body follows head properly
                 }} 
             />
 
@@ -73,11 +73,13 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
                 alt="Whale Head" 
                 className="absolute cursor-pointer bottom-0 top-[43px] w-[45px] h-[44px]"
                 style={{
-                    left: `calc(${sliderValue}% - 45px)`  // Correct left positioning
+                    left: `calc(${sliderValue}% - 45px)`  // Adjust left position so head reaches correct positions for 25%, 50%, etc.
                 }} 
                 onMouseDown={handleMouseDown} 
-                />
+            />
+            
             </div>
+
             <div className="buttons-container flex justify-between w-full">
                 {[25, 50, 75, 100].map((val) => (
                     <button key={val} onClick={() => setSliderValue(val)} className="text-sm w-[20%] py-1 rounded-full transition-colors duration-200 border-2 hover:bg-white hover:text-black">
