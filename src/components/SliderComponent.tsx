@@ -52,15 +52,15 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
     return (
         <div className="flex flex-col items-center justify-center w-full">
             <div ref={sliderContainerRef} className="slider-container relative w-full h-[80px] mb-5">
-                {/* Whale Tail: Fixed at the start */}
-                <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-0 bottom-0 w-[45px] h-[54.5px]" />
+                {/* Whale Tail: Move the tail further back */}
+                <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-[-30px] bottom-0 w-[45px] h-[54.5px]" />
                 
                 {/* Whale Body: Stretches based on sliderValue */}
                 <div 
-                    className="absolute bottom-0 h-[31px]" 
+                    className="absolute bottom-0 h-[32px]" 
                     style={{
-                        left: '45px',  // Start after the tail
-                        width: `calc(${sliderValue}% - 45px)`,  // Stretch with slider
+                        left: '15px',  // Start the body after tail (adjust this to fine-tune alignment)
+                        width: `calc(${sliderValue}% - 15px)`,  // Stretch with slider
                         backgroundImage: 'url(./whale/body.png)',  // Whale body image
                         backgroundRepeat: 'repeat-x',  // Repeat body horizontally
                         backgroundSize: 'contain'
@@ -74,7 +74,7 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
                     alt="Whale Head" 
                     className="absolute cursor-pointer bottom-0 top-[43px] w-[45px] h-[44px]"
                     style={{
-                        left: `calc(${sliderValue}% - 45px)`  // Position the head with the slider
+                        left: `calc(${sliderValue}% - 30px)`  // Position the head with the slider
                     }} 
                     onMouseDown={handleMouseDown} 
                 />
