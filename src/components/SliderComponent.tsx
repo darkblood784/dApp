@@ -50,16 +50,16 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
     }, [isDragging, handleMouseMove]);
 
     return (
-        <div className="w-full">
-            <div className="relative w-full h-[80px] mb-5 flex items-center">
-                {/* Whale Tail: Adjusted for better alignment across screens */}
-                <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-[-80px] md:left-[-60px] lg:left-[-40px] w-[50px] md:w-[40px] lg:w-[50px] h-[54.5px]" />
-
+        <div className="flex flex-col items-center justify-center w-full">
+            <div ref={sliderContainerRef} className="slider-container relative w-full h-[80px] mb-5">
+                {/* Whale Tail: Move the tail further back */}
+                <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-[-80px] bottom-0 w-[50px] h-[54.5px]" />
+                
                 {/* Whale Body: Stretches based on sliderValue */}
                 <div 
-                    className="absolute bottom-0 h-[34px] md:h-[24px]" 
+                    className="absolute bottom-0 h-[34px]" 
                     style={{
-                        left: '-35px',  // Adjust this based on screen size with Tailwind breakpoints if needed
+                        left: '-35px',  // Start the body after tail (adjust this to fine-tune alignment)
                         width: `calc(${sliderValue}% - 0px)`,  // Stretch with slider
                         backgroundImage: 'url(./whale/body.png)',  // Whale body image
                         backgroundRepeat: 'repeat-x',  // Repeat body horizontally
@@ -72,16 +72,16 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
                     ref={whaleHeadRef} 
                     src={getWhaleHeadSrc()} 
                     alt="Whale Head" 
-                    className="absolute cursor-pointer bottom-0 top-[43px] w-[80px] md:w-[60px] lg:w-[80px] h-[44px]"
+                    className="absolute cursor-pointer bottom-0 top-[43px] w-[80px] h-[44px]"
                     style={{
-                        left: `calc(${sliderValue}% - 35px)`  // Adjust head position using media queries
+                        left: `calc(${sliderValue}% - 35px)`  // Position the head with the slider
                     }} 
                     onMouseDown={handleMouseDown} 
                 />
             </div>
 
             {/* Buttons for preset values */}
-            <div className="flex justify-between w-full">
+            <div className="buttons-container flex justify-between w-full">
                 {[25, 50, 75, 100].map((val) => (
                     <button key={val} onClick={() => setSliderValue(val)} className="text-sm w-[20%] py-1 rounded-full transition-colors duration-200 border-2 hover:bg-white hover:text-black">
                         {val === 100 ? 'All In' : `${val}%`}
