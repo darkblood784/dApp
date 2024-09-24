@@ -53,12 +53,30 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
         <div className="flex flex-col items-center justify-center w-full">
             <div ref={sliderContainerRef} className="slider-container relative w-full h-[80px] mb-5">
                 <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-0 bottom-0 w-[45px] h-[54.5px]" />
-                <div className="absolute left-[45px] bottom-[1.5px] h-[31px] bg-[#5170fd] bg-repeat-x bg-contain w-full" style={{ width: `calc(${sliderValue}% - 90px)`, maxWidth: `calc(100% - 90px)` }}></div>
-                <img ref={whaleHeadRef} src={getWhaleHeadSrc()} alt="Whale Head" className="absolute cursor-pointer ml-10 bottom-0 top-[43px] w-[45px] h-[44px]" 
+                
+                {/* Whale Body follows the head */}
+                <img 
+                src="./whale/body.png" 
+                alt="Whale Body" 
+                className="absolute left-[45px] bottom-[1.5px] h-[31px]" 
                 style={{
-                    left: sliderValue < 25 ? `0` : `calc(${sliderValue}% - 90px)`,
+                    width: `calc(${sliderValue}% - 45px)`,  // Make the body proportional to the slider
+                    maxWidth: `calc(100% - 90px)`, 
+                    border: '2px solid black'
                 }} 
-                onMouseDown={handleMouseDown} />
+            />
+
+                {/* Whale Head (drag element) */}
+                <img 
+                ref={whaleHeadRef} 
+                src={getWhaleHeadSrc()} 
+                alt="Whale Head" 
+                className="absolute cursor-pointer bottom-0 top-[43px] w-[45px] h-[44px]"
+                style={{
+                    left: `calc(${sliderValue}% - 45px)`  // Correct left positioning
+                }} 
+                onMouseDown={handleMouseDown} 
+                />
             </div>
             <div className="buttons-container flex justify-between w-full">
                 {[25, 50, 75, 100].map((val) => (
