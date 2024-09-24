@@ -74,7 +74,7 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
                     alt="Whale Head" 
                     className="absolute cursor-pointer bottom-0 top-[43px] w-[60px] h-[44px]"
                     style={{
-                        left: `calc(${sliderValue}% - 55px)`  // Position the head with the slider
+                        left: `calc(${sliderValue}% - 45px)`  // Position the head with the slider
                     }} 
                     onMouseDown={handleMouseDown} 
                 />
