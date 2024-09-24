@@ -5,9 +5,9 @@ const WhaleSlider = () => {
 
   // Whale head images for different percentage ranges
   const headImages = {
-    "0-25": '/path/to/0_25.png', // Adjust image paths as needed
-    "25-75": '/path/to/25_75.png',
-    "75-100": '/path/to/75_100.png',
+    "0-25": './whale/0_25.png', // Adjust image paths as needed
+    "25-75": './whale/25_75.png',
+    "75-100": './whale/75_100.png',
   };
 
   // Set slider value based on button click or input
@@ -32,7 +32,7 @@ const WhaleSlider = () => {
       <div className="slider-container relative w-full h-[100px] mb-5">
         {/* Fixed Whale Tail */}
         <img
-          src="/path/to/Tail.png" // Adjust image path
+          src="./whale/tail.png" // Adjust image path
           alt="Whale Tail"
           className="absolute left-0 bottom-0 w-[70px] h-[80px]"
         />
@@ -43,7 +43,7 @@ const WhaleSlider = () => {
           style={{
             left: '70px', // Ensure body starts after tail
             width: `${sliderValue * 4}px`, // Stretch ratio for the body
-            backgroundImage: 'url(/path/to/Body.png)', // Adjust image path
+            backgroundImage: 'url(./whale/body.png)', // Adjust image path
           }}
         ></div>
 
