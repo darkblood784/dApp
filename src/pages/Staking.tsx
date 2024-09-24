@@ -144,9 +144,11 @@ function Staking() {
                         </div>
                         <div className="flex w-full justify-between">
                             <p className="text-[25px] md">{usdtduration ? usdtduration : "0 Days"}</p>
-                            <div className="text-2xl mt-2.5">{`${Math.round{sliderValueusdt}}%`}</div>
+                            {/* Display rounded slider value */}
+                            <div className="text-2xl mt-2.5">{`${Math.round(sliderValueusdt)}%`}</div>
 
                         </div>
+
                         <WhaleSlider
                             sliderValue={sliderValueusdt}
                             setSliderValue={setSliderValueusdt}
