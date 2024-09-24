@@ -1,90 +1,95 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 
-const WhaleSlider = () => {
-  const [sliderValue, setSliderValue] = useState(0);
+interface WhaleSliderProps {
+    sliderValue: number;
+    setSliderValue: (value: number) => void;
+    getWhaleHeadSrc: () => string;
+}
 
-  // Whale head images for different percentage ranges
-  const headImages = {
-    "0-25": './whale/0_25.png', // Adjust image paths as needed
-    "25-75": './whale/25_75.png',
-    "75-100": './whale/75_100.png',
-  };
+const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, getWhaleHeadSrc }) => {
+    const sliderContainerRef = useRef<HTMLDivElement>(null);
+    const whaleHeadRef = useRef<HTMLImageElement>(null);
+    const [isDragging, setIsDragging] = useState<boolean>(false);
 
-  // Set slider value based on button click or input
-  const handleSliderChange = useCallback((value) => {
-    setSliderValue(value);
-  }, []);
+    // Handling the start of a drag
+    const handleMouseDown = useCallback((event: React.MouseEvent) => {
+        event.preventDefault();  // Prevent default behavior such as dragging an image.
+        setIsDragging(true);
+    }, []);
 
-  // Determine whale head image based on slider value
-  const getWhaleHeadImage = () => {
-    if (sliderValue <= 25) {
-      return headImages["0-25"];
-    } else if (sliderValue <= 75) {
-      return headImages["25-75"];
-    } else {
-      return headImages["75-100"];
-    }
-  };
+    // Handling the end of a drag
+    const handleMouseUp = useCallback(() => {
+        setIsDragging(false);
+    }, []);
 
-  return (
-    <div className="flex flex-col items-center justify-center w-full">
-      {/* Slider Container */}
-      <div className="slider-container relative w-full h-[100px] mb-5">
-        {/* Fixed Whale Tail */}
-        <img
-          src="./whale/tail.png" // Adjust image path
-          alt="Whale Tail"
-          className="absolute left-0 bottom-0 w-[70px] h-[80px]"
-        />
+    // Handling the dragging movement
+    const handleMouseMove = useCallback((event: MouseEvent) => {
+        if (isDragging && sliderContainerRef.current) {
+            const bounds = sliderContainerRef.current.getBoundingClientRect();
+            const mouseX = event.clientX - bounds.left; // Relative horizontal position in the slider
+            const newValue = Math.max(0, Math.min(100, (mouseX / bounds.width) * 100)); // Calculating percentage
+            setSliderValue(newValue); // Explicit type for value
+        }
+    }, [isDragging, setSliderValue]);
 
-        {/* Stretchable Whale Body */}
-        <div
-          className="absolute bottom-0 h-[50px] bg-contain bg-repeat-x"
-          style={{
-            left: '70px', // Ensure body starts after tail
-            width: `${sliderValue * 4}px`, // Stretch ratio for the body
-            backgroundImage: 'url(./whale/body.png)', // Adjust image path
-          }}
-        ></div>
+    // Attaching and cleaning up event listeners
+    useEffect(() => {
+        const handleMouseUpGlobal = () => setIsDragging(false);
 
-        {/* Draggable Whale Head */}
-        <img
-          src={getWhaleHeadImage()}
-          alt="Whale Head"
-          className="absolute cursor-pointer bottom-0 w-[90px] h-[64px]"
-          style={{
-            left: `${70 + sliderValue * 4}px`, // Move head in sync with the body
-          }}
-        />
-      </div>
+        if (isDragging) {
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUpGlobal);
+        }
 
-      {/* Range Slider (hidden) */}
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={sliderValue}
-        onChange={(e) => handleSliderChange(e.target.value)}
-        className="absolute w-[430px] bottom-[20px] left-[70px] h-[5px] bg-transparent"
-      />
+        return () => {
+            if (isDragging) {
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUpGlobal);
+            }
+        };
+    }, [isDragging, handleMouseMove]);
 
-      {/* Buttons for percentage selection */}
-      <div className="buttons-container flex justify-between w-full">
-        {[25, 50, 75, 100].map((value) => (
-          <button
-            key={value}
-            onClick={() => handleSliderChange(value)}
-            className="text-sm py-2 px-4 rounded-full bg-gray-800 text-white hover:bg-gray-600"
-          >
-            {value === 100 ? 'All In' : `${value}%`}
-          </button>
-        ))}
-      </div>
+    return (
+        <div className="flex flex-col items-center justify-center w-full">
+            <div ref={sliderContainerRef} className="slider-container relative w-full h-[80px] mb-5">
+                {/* Whale Tail: Fixed at the start */}
+                <img src="./whale/tail.png" alt="Whale Tail" className="absolute left-0 bottom-0 w-[45px] h-[54.5px]" />
+                
+                {/* Whale Body: Stretches based on sliderValue */}
+                <div 
+                    className="absolute bottom-0 h-[31px]" 
+                    style={{
+                        left: '45px',  // Start after the tail
+                        width: `calc(${sliderValue}% - 45px)`,  // Stretch with slider
+                        backgroundImage: 'url(./whale/body.png)',  // Whale body image
+                        backgroundRepeat: 'repeat-x',  // Repeat body horizontally
+                        backgroundSize: 'contain'
+                    }}
+                ></div>
 
-      {/* Slider Value Display */}
-      <div className="text-2xl mt-2.5">{`${sliderValue}%`}</div>
-    </div>
-  );
+                {/* Whale Head: Moves based on sliderValue */}
+                <img 
+                    ref={whaleHeadRef} 
+                    src={getWhaleHeadSrc()} 
+                    alt="Whale Head" 
+                    className="absolute cursor-pointer bottom-0 top-[43px] w-[45px] h-[44px]"
+                    style={{
+                        left: `calc(${sliderValue}% - 45px)`  // Position the head with the slider
+                    }} 
+                    onMouseDown={handleMouseDown} 
+                />
+            </div>
+
+            {/* Buttons for preset values */}
+            <div className="buttons-container flex justify-between w-full">
+                {[25, 50, 75, 100].map((val) => (
+                    <button key={val} onClick={() => setSliderValue(val)} className="text-sm w-[20%] py-1 rounded-full transition-colors duration-200 border-2 hover:bg-white hover:text-black">
+                        {val === 100 ? 'All In' : `${val}%`}
+                    </button>
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default WhaleSlider;
