@@ -209,7 +209,7 @@ function Staking() {
                         </div>
                         <div className="flex w-full justify-between">
                             <p className="text-[25px] md">{btcduration ? btcduration : "0 Days"}</p>
-                            <div className="text-2xl mt-2.5">{`${sliderValuebtc}%`}</div>
+                            <div className="text-2xl mt-2.5">{`${Math.round(sliderValuebtc)}%`}</div>
                         </div>
                         <WhaleSlider
                             sliderValue={sliderValuebtc}
@@ -271,7 +271,7 @@ function Staking() {
                         </div>
                         <div className="flex w-full justify-between">
                             <p className="text-[25px] md">{ethduration ? ethduration : "0 Days"}</p>
-                            <div className="text-2xl mt-2.5">{`${sliderValueeth}%`}</div>
+                            <div className="text-2xl mt-2.5">{`${Math.round(sliderValueeth)}%`}</div>
                         </div>
                         <WhaleSlider
                             sliderValue={sliderValueeth}
