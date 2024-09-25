@@ -10,6 +10,8 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
     const sliderContainerRef = useRef<HTMLDivElement>(null);
     const whaleHeadRef = useRef<HTMLImageElement>(null);
     const [isDragging, setIsDragging] = useState<boolean>(false);
+    const [isHovered, setIsHovered] = useState<boolean>(false); // State for hover effect
+
 
     // Handling the start of a drag
     const handleMouseDown = useCallback((event: React.MouseEvent) => {
