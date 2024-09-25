@@ -27,7 +27,7 @@ interface BlinkingUnderscoreInputProps {
 }
 
 const headImages: WhaleImagePaths = {
-    "0-25": './whale/TTTTWHALE.png',
+    "0-25": './whale/tailwhale.png',
     "25-75": './whale/25-75.png',
     "75-100": './whale/75-100.png'
 };
