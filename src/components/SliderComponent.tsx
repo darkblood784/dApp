@@ -57,7 +57,7 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
                 
                 {/* Whale Body: Stretches based on sliderValue */}
                 <div 
-                    className="absolute bottom-0 h-[33.5px]" 
+                    className="absolute bottom-0 h-[34px]" 
                     style={{
                         left: '-35px',  // Start the body after tail (adjust this to fine-tune alignment)
                         width: `calc(${sliderValue}% - 0px)`,  // Stretch with slider
