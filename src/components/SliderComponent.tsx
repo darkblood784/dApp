@@ -75,8 +75,12 @@ const WhaleSlider: React.FC<WhaleSliderProps> = ({ sliderValue, setSliderValue, 
                     className="absolute cursor-pointer bottom-0 top-[43px] w-[80px] h-[44px]"
                     style={{
                         left: `calc(${sliderValue}% - 48px)`  // Position the head with the slider
+                        transform: isHovered ? 'scale(1.05)' : 'scale(1.01)', // Hover effect (scaling the whale head)
+                        transition: 'transform 0.1s ease'  // Smooth transition for the hover effect
                     }} 
                     onMouseDown={handleMouseDown} 
+                    onMouseEnter={() => setIsHovered(true)}  // Set hover state on mouse enter
+                    onMouseLeave={() => setIsHovered(false)}  // Unset hover state on mouse leave
                 />
             </div>
 
